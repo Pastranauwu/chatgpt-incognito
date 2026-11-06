@@ -1,0 +1,47 @@
+Object.defineProperties(exports, {
+	__esModule: { value: true },
+	[Symbol.toStringTag]: { value: "Module" }
+});
+const require_constants = require("../constants.js");
+const require_specialTokens = require("../specialTokens.js");
+const require_GptEncoding = require("../GptEncoding.js");
+const require_bpeRanks_o200k_base = require("../bpeRanks/o200k_base.js");
+//#region src/encoding/o200k_harmony.ts
+const api = require_GptEncoding.GptEncoding.getEncodingApi("o200k_harmony", () => require_bpeRanks_o200k_base.default);
+const { decode, decodeAsyncGenerator, decodeGenerator, encode, encodeGenerator, isWithinTokenLimit, countTokens, createIncrementalCounter, encodeChat, encodeChatGenerator, vocabularySize, setMergeCacheSize, clearMergeCache, estimateCost } = api;
+//#endregion
+exports.ALL_SPECIAL_TOKENS = require_constants.ALL_SPECIAL_TOKENS;
+exports.DEFAULT_MERGE_CACHE_SIZE = require_constants.DEFAULT_MERGE_CACHE_SIZE;
+exports.EndOfPrompt = require_specialTokens.EndOfPrompt;
+exports.EndOfText = require_specialTokens.EndOfText;
+exports.FimMiddle = require_specialTokens.FimMiddle;
+exports.FimPrefix = require_specialTokens.FimPrefix;
+exports.FimSuffix = require_specialTokens.FimSuffix;
+exports.HarmonyCall = require_specialTokens.HarmonyCall;
+exports.HarmonyChannel = require_specialTokens.HarmonyChannel;
+exports.HarmonyConstrain = require_specialTokens.HarmonyConstrain;
+exports.HarmonyEnd = require_specialTokens.HarmonyEnd;
+exports.HarmonyMessage = require_specialTokens.HarmonyMessage;
+exports.HarmonyReturn = require_specialTokens.HarmonyReturn;
+exports.HarmonyStart = require_specialTokens.HarmonyStart;
+exports.HarmonyStartOfText = require_specialTokens.HarmonyStartOfText;
+exports.ImEnd = require_specialTokens.ImEnd;
+exports.ImSep = require_specialTokens.ImSep;
+exports.ImStart = require_specialTokens.ImStart;
+exports.clearMergeCache = clearMergeCache;
+exports.countTokens = countTokens;
+exports.createIncrementalCounter = createIncrementalCounter;
+exports.decode = decode;
+exports.decodeAsyncGenerator = decodeAsyncGenerator;
+exports.decodeGenerator = decodeGenerator;
+exports.default = api;
+exports.encode = encode;
+exports.encodeChat = encodeChat;
+exports.encodeChatGenerator = encodeChatGenerator;
+exports.encodeGenerator = encodeGenerator;
+exports.estimateCost = estimateCost;
+exports.isWithinTokenLimit = isWithinTokenLimit;
+exports.setMergeCacheSize = setMergeCacheSize;
+exports.vocabularySize = vocabularySize;
+
+//# sourceMappingURL=o200k_harmony.js.map

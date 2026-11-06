@@ -1,0 +1,639 @@
+import { "babbage-002" as babbage_002_spec, "chat-latest" as chat_latest_spec, "chatgpt-4o-latest" as chatgpt_4o_latest_spec, "chatgpt-image-latest" as chatgpt_image_latest_spec, "codex-mini-latest" as codex_mini_latest_spec, "computer-use-preview" as computer_use_preview_2025_03_11_spec, "dall-e-2" as dall_e_2_spec, "dall-e-3" as dall_e_3_spec, "davinci-002" as davinci_002_spec, "daybreak-blue-latest" as gpt_5_6_sol_spec, "daybreak-red-latest" as gpt_5_6_cyber_spec, "gpt-3.5-turbo" as gpt_3_5_turbo_0125_spec, "gpt-3.5-turbo-1106" as gpt_3_5_turbo_1106_spec, "gpt-3.5-turbo-16k-0613" as gpt_3_5_turbo_16k_0613_spec, "gpt-3.5-turbo-instruct" as gpt_3_5_turbo_instruct_spec, "gpt-4" as gpt_4_0613_spec, "gpt-4-0125-preview" as gpt_4_0125_preview_spec, "gpt-4-0314" as gpt_4_0314_spec, "gpt-4-1106-vision-preview" as gpt_4_1106_vision_preview_spec, "gpt-4-turbo" as gpt_4_turbo_2024_04_09_spec, "gpt-4.1" as gpt_4_1_2025_04_14_spec, "gpt-4.1-mini" as gpt_4_1_mini_2025_04_14_spec, "gpt-4.1-nano" as gpt_4_1_nano_2025_04_14_spec, "gpt-4.5-preview" as gpt_4_5_preview_2025_02_27_spec, "gpt-4o" as gpt_4o_2024_08_06_spec, "gpt-4o-2024-05-13" as gpt_4o_2024_05_13_spec, "gpt-4o-2024-11-20" as gpt_4o_2024_11_20_spec, "gpt-4o-audio-preview" as gpt_4o_audio_preview_2025_06_03_spec, "gpt-4o-audio-preview-2024-10-01" as gpt_4o_audio_preview_2024_10_01_spec, "gpt-4o-audio-preview-2024-12-17" as gpt_4o_audio_preview_2024_12_17_spec, "gpt-4o-mini" as gpt_4o_mini_2024_07_18_spec, "gpt-4o-mini-audio-preview" as gpt_4o_mini_audio_preview_2024_12_17_spec, "gpt-4o-mini-realtime-preview" as gpt_4o_mini_realtime_preview_2024_12_17_spec, "gpt-4o-mini-search-preview" as gpt_4o_mini_search_preview_2025_03_11_spec, "gpt-4o-mini-transcribe" as gpt_4o_mini_transcribe_2025_12_15_spec, "gpt-4o-mini-transcribe-2025-03-20" as gpt_4o_mini_transcribe_2025_03_20_spec, "gpt-4o-mini-tts" as gpt_4o_mini_tts_2025_12_15_spec, "gpt-4o-mini-tts-2025-03-20" as gpt_4o_mini_tts_2025_03_20_spec, "gpt-4o-realtime-preview" as gpt_4o_realtime_preview_2025_06_03_spec, "gpt-4o-realtime-preview-2024-10-01" as gpt_4o_realtime_preview_2024_10_01_spec, "gpt-4o-realtime-preview-2024-12-17" as gpt_4o_realtime_preview_2024_12_17_spec, "gpt-4o-search-preview" as gpt_4o_search_preview_2025_03_11_spec, "gpt-4o-transcribe" as gpt_4o_transcribe_spec, "gpt-4o-transcribe-diarize" as gpt_4o_transcribe_diarize_spec, "gpt-5" as gpt_5_2025_08_07_spec, "gpt-5-chat-latest" as gpt_5_chat_latest_spec, "gpt-5-codex" as gpt_5_codex_spec, "gpt-5-mini" as gpt_5_mini_2025_08_07_spec, "gpt-5-nano" as gpt_5_nano_2025_08_07_spec, "gpt-5-pro" as gpt_5_pro_2025_10_06_spec, "gpt-5.1" as gpt_5_1_2025_11_13_spec, "gpt-5.1-chat-latest" as gpt_5_1_chat_latest_spec, "gpt-5.1-codex" as gpt_5_1_codex_spec, "gpt-5.1-codex-max" as gpt_5_1_codex_max_spec, "gpt-5.1-codex-mini" as gpt_5_1_codex_mini_spec, "gpt-5.2" as gpt_5_2_2025_12_11_spec, "gpt-5.2-chat-latest" as gpt_5_2_chat_latest_spec, "gpt-5.2-codex" as gpt_5_2_codex_spec, "gpt-5.2-pro" as gpt_5_2_pro_2025_12_11_spec, "gpt-5.3-chat-latest" as gpt_5_3_chat_latest_spec, "gpt-5.3-codex" as gpt_5_3_codex_spec, "gpt-5.4" as gpt_5_4_2026_03_05_spec, "gpt-5.4-mini" as gpt_5_4_mini_2026_03_17_spec, "gpt-5.4-nano" as gpt_5_4_nano_2026_03_17_spec, "gpt-5.4-pro" as gpt_5_4_pro_2026_03_05_spec, "gpt-5.5" as gpt_5_5_2026_04_23_spec, "gpt-5.5-pro" as gpt_5_5_pro_2026_04_23_spec, "gpt-5.6-luna" as gpt_5_6_luna_spec, "gpt-5.6-terra" as gpt_5_6_terra_spec, "gpt-audio" as gpt_audio_2025_08_28_spec, "gpt-audio-1.5" as gpt_audio_1_5_spec, "gpt-audio-mini" as gpt_audio_mini_2025_12_15_spec, "gpt-audio-mini-2025-10-06" as gpt_audio_mini_2025_10_06_spec, "gpt-image-1" as gpt_image_1_spec, "gpt-image-1-mini" as gpt_image_1_mini_spec, "gpt-image-1.5" as gpt_image_1_5_2025_12_16_spec, "gpt-image-2" as gpt_image_2_2026_04_21_spec, "gpt-live-transcribe" as gpt_live_transcribe_spec, "gpt-oss-120b" as gpt_oss_120b_spec, "gpt-oss-20b" as gpt_oss_20b_spec, "gpt-realtime" as gpt_realtime_2025_08_28_spec, "gpt-realtime-1.5" as gpt_realtime_1_5_spec, "gpt-realtime-2" as gpt_realtime_2_spec, "gpt-realtime-2.1" as gpt_realtime_2_1_spec, "gpt-realtime-2.1-mini" as gpt_realtime_2_1_mini_spec, "gpt-realtime-mini" as gpt_realtime_mini_2025_12_15_spec, "gpt-realtime-mini-2025-10-06" as gpt_realtime_mini_2025_10_06_spec, "gpt-realtime-translate" as gpt_realtime_translate_spec, "gpt-realtime-whisper" as gpt_realtime_whisper_spec, "gpt-transcribe" as gpt_transcribe_spec, "o1-mini" as o1_mini_2024_09_12_spec, "o1-preview" as o1_preview_2024_09_12_spec, "o1-pro" as o1_pro_2025_03_19_spec, "o3-deep-research" as o3_deep_research_2025_06_26_spec, "o3-mini" as o3_mini_2025_01_31_spec, "o3-pro" as o3_pro_2025_06_10_spec, "o4-mini" as o4_mini_2025_04_16_spec, "o4-mini-deep-research" as o4_mini_deep_research_2025_06_26_spec, "omni-moderation-2024-09-26" as omni_moderation_2024_09_26_spec, "sora-2" as sora_2_spec, "sora-2-2025-10-06" as sora_2_2025_10_06_spec, "sora-2-2025-12-08" as sora_2_2025_12_08_spec, "sora-2-pro" as sora_2_pro_spec, "sora-2-pro-2025-10-06" as sora_2_pro_2025_10_06_spec, "text-embedding-3-large" as text_embedding_3_large_spec, "text-embedding-3-small" as text_embedding_3_small_spec, "text-embedding-ada-002" as text_embedding_ada_002_spec, "text-moderation-007" as text_moderation_007_spec, "tts-1" as tts_1_spec, "tts-1-hd" as tts_1_hd_spec, "whisper-1" as whisper_1_spec, o1 as o1_2024_12_17_spec, o3 as o3_2025_04_16_spec } from "./models.gen.js";
+//#region src/models.ts
+const gpt_3_5_0301_spec = {
+	...gpt_3_5_turbo_0125_spec,
+	name: "gpt-3.5-0301",
+	slug: "gpt-3-5-0301",
+	supported_endpoints: ["chat_completions", "responses"],
+	price_data: {
+		main: {
+			input: 1.5,
+			output: 2
+		},
+		batch: {
+			input: .75,
+			output: 1
+		}
+	}
+};
+const gpt_3_5_turbo_0613_spec = {
+	...gpt_3_5_turbo_0125_spec,
+	name: "gpt-3.5-turbo-0613",
+	slug: "gpt-3-5-turbo-0613",
+	supported_endpoints: [
+		"chat_completions",
+		"responses",
+		"batch"
+	],
+	price_data: {
+		main: {
+			input: 1.5,
+			output: 2
+		},
+		batch: {
+			input: .75,
+			output: 1
+		}
+	}
+};
+const gpt_4_1106_preview_spec = {
+	...gpt_4_0613_spec,
+	name: "gpt-4-1106-preview",
+	slug: "gpt-4-1106-preview",
+	performance: 2,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 128e3,
+	max_output_tokens: 4096,
+	supported_features: ["fine_tuning"],
+	supported_endpoints: [
+		"chat_completions",
+		"responses",
+		"assistants"
+	],
+	price_data: {
+		main: {
+			input: 10,
+			output: 30
+		},
+		batch: {
+			input: 5,
+			output: 15
+		}
+	}
+};
+const gpt_4_32k_spec = {
+	...gpt_4_0613_spec,
+	name: "gpt-4-32k",
+	slug: "gpt-4-32k",
+	context_window: 32768,
+	max_output_tokens: 8192,
+	supported_endpoints: [
+		"chat_completions",
+		"responses",
+		"assistants"
+	],
+	price_data: {
+		main: {
+			input: 60,
+			output: 120
+		},
+		batch: {
+			input: 30,
+			output: 60
+		}
+	}
+};
+const gpt_2_spec = {
+	name: "gpt-2",
+	slug: "gpt-2",
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 1024,
+	max_output_tokens: 1024,
+	supported_endpoints: [],
+	reasoning_tokens: false,
+	deprecated: true
+};
+const gpt2_spec = {
+	...gpt_2_spec,
+	name: "gpt2",
+	slug: "gpt2"
+};
+const text_ada_001_spec = {
+	name: "text-ada-001",
+	slug: "text-ada-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const text_babbage_001_spec = {
+	name: "text-babbage-001",
+	slug: "text-babbage-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const text_curie_001_spec = {
+	name: "text-curie-001",
+	slug: "text-curie-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const text_davinci_001_spec = {
+	name: "text-davinci-001",
+	slug: "text-davinci-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const text_davinci_002_spec = {
+	name: "text-davinci-002",
+	slug: "text-davinci-002",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 4e3,
+	max_output_tokens: 4e3,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const text_davinci_003_spec = {
+	name: "text-davinci-003",
+	slug: "text-davinci-003",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 4e3,
+	max_output_tokens: 4e3,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const ada_spec = {
+	name: "ada",
+	slug: "ada",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const babbage_spec = {
+	name: "babbage",
+	slug: "babbage",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const curie_spec = {
+	name: "curie",
+	slug: "curie",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const davinci_spec = {
+	name: "davinci",
+	slug: "davinci",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const code_davinci_001_spec = {
+	name: "code-davinci-001",
+	slug: "code-davinci-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8e3,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const code_davinci_002_spec = {
+	name: "code-davinci-002",
+	slug: "code-davinci-002",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8e3,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const davinci_codex_spec = {
+	name: "davinci-codex",
+	slug: "davinci-codex",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8e3,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const code_davinci_edit_001_spec = {
+	name: "code-davinci-edit-001",
+	slug: "code-davinci-edit-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const code_cushman_001_spec = {
+	name: "code-cushman-001",
+	slug: "code-cushman-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const code_cushman_002_spec = {
+	name: "code-cushman-002",
+	slug: "code-cushman-002",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const cushman_codex_spec = {
+	name: "cushman-codex",
+	slug: "cushman-codex",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const code_search_ada_code_001_spec = {
+	name: "code-search-ada-code-001",
+	slug: "code-search-ada-code-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const code_search_ada_text_001_spec = {
+	name: "code-search-ada-text-001",
+	slug: "code-search-ada-text-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const text_davinci_edit_001_spec = {
+	name: "text-davinci-edit-001",
+	slug: "text-davinci-edit-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 2048,
+	max_output_tokens: 2048,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["completions"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 20 } }
+};
+const text_similarity_ada_001_spec = {
+	name: "text-similarity-ada-001",
+	slug: "text-similarity-ada-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const text_search_ada_doc_001_spec = {
+	name: "text-search-ada-doc-001",
+	slug: "text-search-ada-doc-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const text_search_ada_query_001_spec = {
+	name: "text-search-ada-query-001",
+	slug: "text-search-ada-query-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .4 } }
+};
+const text_similarity_babbage_001_spec = {
+	name: "text-similarity-babbage-001",
+	slug: "text-similarity-babbage-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const text_search_babbage_doc_001_spec = {
+	name: "text-search-babbage-doc-001",
+	slug: "text-search-babbage-doc-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const text_search_babbage_query_001_spec = {
+	name: "text-search-babbage-query-001",
+	slug: "text-search-babbage-query-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const code_search_babbage_code_001_spec = {
+	name: "code-search-babbage-code-001",
+	slug: "code-search-babbage-code-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const code_search_babbage_text_001_spec = {
+	name: "code-search-babbage-text-001",
+	slug: "code-search-babbage-text-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: .5 } }
+};
+const text_similarity_curie_001_spec = {
+	name: "text-similarity-curie-001",
+	slug: "text-similarity-curie-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const text_search_curie_doc_001_spec = {
+	name: "text-search-curie-doc-001",
+	slug: "text-search-curie-doc-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const text_search_curie_query_001_spec = {
+	name: "text-search-curie-query-001",
+	slug: "text-search-curie-query-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 2 } }
+};
+const text_similarity_davinci_001_spec = {
+	name: "text-similarity-davinci-001",
+	slug: "text-similarity-davinci-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 200 } }
+};
+const text_search_davinci_doc_001_spec = {
+	name: "text-search-davinci-doc-001",
+	slug: "text-search-davinci-doc-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 200 } }
+};
+const text_search_davinci_query_001_spec = {
+	name: "text-search-davinci-query-001",
+	slug: "text-search-davinci-query-001",
+	performance: 1,
+	latency: 3,
+	modalities: {
+		input: ["text"],
+		output: ["text"]
+	},
+	context_window: 8191,
+	knowledge_cutoff: new Date(Date.UTC(2021, 8, 1)),
+	supported_endpoints: ["embeddings"],
+	reasoning_tokens: false,
+	price_data: { main: { input: 200 } }
+};
+//#endregion
+export { ada_spec as ada, babbage_spec as babbage, babbage_002_spec as "babbage-002", chat_latest_spec as "chat-latest", chatgpt_4o_latest_spec as "chatgpt-4o-latest", chatgpt_image_latest_spec as "chatgpt-image-latest", code_cushman_001_spec as "code-cushman-001", code_cushman_002_spec as "code-cushman-002", code_davinci_001_spec as "code-davinci-001", code_davinci_002_spec as "code-davinci-002", code_davinci_edit_001_spec as "code-davinci-edit-001", code_search_ada_code_001_spec as "code-search-ada-code-001", code_search_ada_text_001_spec as "code-search-ada-text-001", code_search_babbage_code_001_spec as "code-search-babbage-code-001", code_search_babbage_text_001_spec as "code-search-babbage-text-001", codex_mini_latest_spec as "codex-mini-latest", computer_use_preview_2025_03_11_spec as "computer-use-preview", computer_use_preview_2025_03_11_spec as "computer-use-preview-2025-03-11", curie_spec as curie, cushman_codex_spec as "cushman-codex", dall_e_2_spec as "dall-e-2", dall_e_3_spec as "dall-e-3", davinci_spec as davinci, davinci_002_spec as "davinci-002", davinci_codex_spec as "davinci-codex", gpt_5_6_sol_spec as "daybreak-blue-latest", gpt_5_6_sol_spec as "gpt-5.6-sol", gpt_5_6_cyber_spec as "daybreak-red-latest", gpt_5_6_cyber_spec as "gpt-5.6-cyber", gpt_2_spec as "gpt-2", gpt_3_5_0301_spec as "gpt-3.5", gpt_3_5_0301_spec as "gpt-3.5-0301", gpt_3_5_turbo_0125_spec as "gpt-3.5-turbo", gpt_3_5_turbo_0125_spec as "gpt-3.5-turbo-0125", gpt_3_5_turbo_0613_spec as "gpt-3.5-turbo-0613", gpt_3_5_turbo_1106_spec as "gpt-3.5-turbo-1106", gpt_3_5_turbo_16k_0613_spec as "gpt-3.5-turbo-16k-0613", gpt_3_5_turbo_instruct_spec as "gpt-3.5-turbo-instruct", gpt_4_0613_spec as "gpt-4", gpt_4_0613_spec as "gpt-4-0613", gpt_4_0125_preview_spec as "gpt-4-0125-preview", gpt_4_0125_preview_spec as "gpt-4-turbo-preview", gpt_4_0314_spec as "gpt-4-0314", gpt_4_1106_preview_spec as "gpt-4-1106-preview", gpt_4_1106_vision_preview_spec as "gpt-4-1106-vision-preview", gpt_4_32k_spec as "gpt-4-32k", gpt_4_turbo_2024_04_09_spec as "gpt-4-turbo", gpt_4_turbo_2024_04_09_spec as "gpt-4-turbo-2024-04-09", gpt_4_1_2025_04_14_spec as "gpt-4.1", gpt_4_1_2025_04_14_spec as "gpt-4.1-2025-04-14", gpt_4_1_mini_2025_04_14_spec as "gpt-4.1-mini", gpt_4_1_mini_2025_04_14_spec as "gpt-4.1-mini-2025-04-14", gpt_4_1_nano_2025_04_14_spec as "gpt-4.1-nano", gpt_4_1_nano_2025_04_14_spec as "gpt-4.1-nano-2025-04-14", gpt_4_5_preview_2025_02_27_spec as "gpt-4.5-preview", gpt_4_5_preview_2025_02_27_spec as "gpt-4.5-preview-2025-02-27", gpt_4o_2024_08_06_spec as "gpt-4o", gpt_4o_2024_08_06_spec as "gpt-4o-2024-08-06", gpt_4o_2024_05_13_spec as "gpt-4o-2024-05-13", gpt_4o_2024_11_20_spec as "gpt-4o-2024-11-20", gpt_4o_audio_preview_2025_06_03_spec as "gpt-4o-audio-preview", gpt_4o_audio_preview_2025_06_03_spec as "gpt-4o-audio-preview-2025-06-03", gpt_4o_audio_preview_2024_10_01_spec as "gpt-4o-audio-preview-2024-10-01", gpt_4o_audio_preview_2024_12_17_spec as "gpt-4o-audio-preview-2024-12-17", gpt_4o_mini_2024_07_18_spec as "gpt-4o-mini", gpt_4o_mini_2024_07_18_spec as "gpt-4o-mini-2024-07-18", gpt_4o_mini_audio_preview_2024_12_17_spec as "gpt-4o-mini-audio-preview", gpt_4o_mini_audio_preview_2024_12_17_spec as "gpt-4o-mini-audio-preview-2024-12-17", gpt_4o_mini_realtime_preview_2024_12_17_spec as "gpt-4o-mini-realtime-preview", gpt_4o_mini_realtime_preview_2024_12_17_spec as "gpt-4o-mini-realtime-preview-2024-12-17", gpt_4o_mini_search_preview_2025_03_11_spec as "gpt-4o-mini-search-preview", gpt_4o_mini_search_preview_2025_03_11_spec as "gpt-4o-mini-search-preview-2025-03-11", gpt_4o_mini_transcribe_2025_12_15_spec as "gpt-4o-mini-transcribe", gpt_4o_mini_transcribe_2025_12_15_spec as "gpt-4o-mini-transcribe-2025-12-15", gpt_4o_mini_transcribe_2025_03_20_spec as "gpt-4o-mini-transcribe-2025-03-20", gpt_4o_mini_tts_2025_12_15_spec as "gpt-4o-mini-tts", gpt_4o_mini_tts_2025_12_15_spec as "gpt-4o-mini-tts-2025-12-15", gpt_4o_mini_tts_2025_03_20_spec as "gpt-4o-mini-tts-2025-03-20", gpt_4o_realtime_preview_2025_06_03_spec as "gpt-4o-realtime-preview", gpt_4o_realtime_preview_2025_06_03_spec as "gpt-4o-realtime-preview-2025-06-03", gpt_4o_realtime_preview_2024_10_01_spec as "gpt-4o-realtime-preview-2024-10-01", gpt_4o_realtime_preview_2024_12_17_spec as "gpt-4o-realtime-preview-2024-12-17", gpt_4o_search_preview_2025_03_11_spec as "gpt-4o-search-preview", gpt_4o_search_preview_2025_03_11_spec as "gpt-4o-search-preview-2025-03-11", gpt_4o_transcribe_spec as "gpt-4o-transcribe", gpt_4o_transcribe_diarize_spec as "gpt-4o-transcribe-diarize", gpt_5_2025_08_07_spec as "gpt-5", gpt_5_2025_08_07_spec as "gpt-5-2025-08-07", gpt_5_chat_latest_spec as "gpt-5-chat-latest", gpt_5_codex_spec as "gpt-5-codex", gpt_5_mini_2025_08_07_spec as "gpt-5-mini", gpt_5_mini_2025_08_07_spec as "gpt-5-mini-2025-08-07", gpt_5_nano_2025_08_07_spec as "gpt-5-nano", gpt_5_nano_2025_08_07_spec as "gpt-5-nano-2025-08-07", gpt_5_pro_2025_10_06_spec as "gpt-5-pro", gpt_5_pro_2025_10_06_spec as "gpt-5-pro-2025-10-06", gpt_5_1_2025_11_13_spec as "gpt-5.1", gpt_5_1_2025_11_13_spec as "gpt-5.1-2025-11-13", gpt_5_1_chat_latest_spec as "gpt-5.1-chat-latest", gpt_5_1_codex_spec as "gpt-5.1-codex", gpt_5_1_codex_max_spec as "gpt-5.1-codex-max", gpt_5_1_codex_mini_spec as "gpt-5.1-codex-mini", gpt_5_2_2025_12_11_spec as "gpt-5.2", gpt_5_2_2025_12_11_spec as "gpt-5.2-2025-12-11", gpt_5_2_chat_latest_spec as "gpt-5.2-chat-latest", gpt_5_2_codex_spec as "gpt-5.2-codex", gpt_5_2_pro_2025_12_11_spec as "gpt-5.2-pro", gpt_5_2_pro_2025_12_11_spec as "gpt-5.2-pro-2025-12-11", gpt_5_3_chat_latest_spec as "gpt-5.3-chat-latest", gpt_5_3_codex_spec as "gpt-5.3-codex", gpt_5_4_2026_03_05_spec as "gpt-5.4", gpt_5_4_2026_03_05_spec as "gpt-5.4-2026-03-05", gpt_5_4_mini_2026_03_17_spec as "gpt-5.4-mini", gpt_5_4_mini_2026_03_17_spec as "gpt-5.4-mini-2026-03-17", gpt_5_4_nano_2026_03_17_spec as "gpt-5.4-nano", gpt_5_4_nano_2026_03_17_spec as "gpt-5.4-nano-2026-03-17", gpt_5_4_pro_2026_03_05_spec as "gpt-5.4-pro", gpt_5_4_pro_2026_03_05_spec as "gpt-5.4-pro-2026-03-05", gpt_5_5_2026_04_23_spec as "gpt-5.5", gpt_5_5_2026_04_23_spec as "gpt-5.5-2026-04-23", gpt_5_5_pro_2026_04_23_spec as "gpt-5.5-pro", gpt_5_5_pro_2026_04_23_spec as "gpt-5.5-pro-2026-04-23", gpt_5_6_luna_spec as "gpt-5.6-luna", gpt_5_6_terra_spec as "gpt-5.6-terra", gpt_audio_2025_08_28_spec as "gpt-audio", gpt_audio_2025_08_28_spec as "gpt-audio-2025-08-28", gpt_audio_1_5_spec as "gpt-audio-1.5", gpt_audio_mini_2025_12_15_spec as "gpt-audio-mini", gpt_audio_mini_2025_12_15_spec as "gpt-audio-mini-2025-12-15", gpt_audio_mini_2025_10_06_spec as "gpt-audio-mini-2025-10-06", gpt_image_1_spec as "gpt-image-1", gpt_image_1_mini_spec as "gpt-image-1-mini", gpt_image_1_5_2025_12_16_spec as "gpt-image-1.5", gpt_image_1_5_2025_12_16_spec as "gpt-image-1.5-2025-12-16", gpt_image_2_2026_04_21_spec as "gpt-image-2", gpt_image_2_2026_04_21_spec as "gpt-image-2-2026-04-21", gpt_live_transcribe_spec as "gpt-live-transcribe", gpt_oss_120b_spec as "gpt-oss-120b", gpt_oss_20b_spec as "gpt-oss-20b", gpt_realtime_2025_08_28_spec as "gpt-realtime", gpt_realtime_2025_08_28_spec as "gpt-realtime-2025-08-28", gpt_realtime_1_5_spec as "gpt-realtime-1.5", gpt_realtime_2_spec as "gpt-realtime-2", gpt_realtime_2_1_spec as "gpt-realtime-2.1", gpt_realtime_2_1_mini_spec as "gpt-realtime-2.1-mini", gpt_realtime_mini_2025_12_15_spec as "gpt-realtime-mini", gpt_realtime_mini_2025_12_15_spec as "gpt-realtime-mini-2025-12-15", gpt_realtime_mini_2025_10_06_spec as "gpt-realtime-mini-2025-10-06", gpt_realtime_translate_spec as "gpt-realtime-translate", gpt_realtime_whisper_spec as "gpt-realtime-whisper", gpt_transcribe_spec as "gpt-transcribe", gpt2_spec as gpt2, o1_2024_12_17_spec as o1, o1_2024_12_17_spec as "o1-2024-12-17", o1_mini_2024_09_12_spec as "o1-mini", o1_mini_2024_09_12_spec as "o1-mini-2024-09-12", o1_preview_2024_09_12_spec as "o1-preview", o1_preview_2024_09_12_spec as "o1-preview-2024-09-12", o1_pro_2025_03_19_spec as "o1-pro", o1_pro_2025_03_19_spec as "o1-pro-2025-03-19", o3_2025_04_16_spec as o3, o3_2025_04_16_spec as "o3-2025-04-16", o3_deep_research_2025_06_26_spec as "o3-deep-research", o3_deep_research_2025_06_26_spec as "o3-deep-research-2025-06-26", o3_mini_2025_01_31_spec as "o3-mini", o3_mini_2025_01_31_spec as "o3-mini-2025-01-31", o3_pro_2025_06_10_spec as "o3-pro", o3_pro_2025_06_10_spec as "o3-pro-2025-06-10", o4_mini_2025_04_16_spec as "o4-mini", o4_mini_2025_04_16_spec as "o4-mini-2025-04-16", o4_mini_deep_research_2025_06_26_spec as "o4-mini-deep-research", o4_mini_deep_research_2025_06_26_spec as "o4-mini-deep-research-2025-06-26", omni_moderation_2024_09_26_spec as "omni-moderation-2024-09-26", omni_moderation_2024_09_26_spec as "omni-moderation-latest", sora_2_spec as "sora-2", sora_2_2025_10_06_spec as "sora-2-2025-10-06", sora_2_2025_12_08_spec as "sora-2-2025-12-08", sora_2_pro_spec as "sora-2-pro", sora_2_pro_2025_10_06_spec as "sora-2-pro-2025-10-06", text_ada_001_spec as "text-ada-001", text_babbage_001_spec as "text-babbage-001", text_curie_001_spec as "text-curie-001", text_davinci_001_spec as "text-davinci-001", text_davinci_002_spec as "text-davinci-002", text_davinci_003_spec as "text-davinci-003", text_davinci_edit_001_spec as "text-davinci-edit-001", text_embedding_3_large_spec as "text-embedding-3-large", text_embedding_3_small_spec as "text-embedding-3-small", text_embedding_ada_002_spec as "text-embedding-ada-002", text_moderation_007_spec as "text-moderation-007", text_moderation_007_spec as "text-moderation-latest", text_moderation_007_spec as "text-moderation-stable", text_search_ada_doc_001_spec as "text-search-ada-doc-001", text_search_ada_query_001_spec as "text-search-ada-query-001", text_search_babbage_doc_001_spec as "text-search-babbage-doc-001", text_search_babbage_query_001_spec as "text-search-babbage-query-001", text_search_curie_doc_001_spec as "text-search-curie-doc-001", text_search_curie_query_001_spec as "text-search-curie-query-001", text_search_davinci_doc_001_spec as "text-search-davinci-doc-001", text_search_davinci_query_001_spec as "text-search-davinci-query-001", text_similarity_ada_001_spec as "text-similarity-ada-001", text_similarity_babbage_001_spec as "text-similarity-babbage-001", text_similarity_curie_001_spec as "text-similarity-curie-001", text_similarity_davinci_001_spec as "text-similarity-davinci-001", tts_1_spec as "tts-1", tts_1_hd_spec as "tts-1-hd", whisper_1_spec as "whisper-1" };
+
+//# sourceMappingURL=models.js.map
