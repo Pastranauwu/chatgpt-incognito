@@ -14,10 +14,18 @@ Puente de automatización y servidor API local compatible con OpenAI que interac
 
 ---
 
-## Requisitos
+## Requisitos y Compatibilidad Multiplataforma
 
-- Node.js >= 18
-- Navegador Brave instalado en el sistema (`/usr/bin/brave`)
+- **Node.js** >= 18
+- **Sistemas Operativos**: Windows, Linux o macOS.
+- **Navegador**: Busca automáticamente en el sistema con el siguiente orden de prioridad:
+  1. **Brave Browser** (`brave.exe` / `brave-browser` / `brave`)
+  2. **Google Chrome** (`chrome.exe` / `google-chrome-stable` / `google-chrome`)
+  3. **Chromium** (`chrome.exe` / `chromium`)
+- **Ruta personalizada (Opcional)**: Puedes forzar un ejecutable específico con la variable de entorno `BROWSER_PATH`:
+  - En Linux/macOS: `export BROWSER_PATH="/ruta/a/navegador"`
+  - En Windows (PowerShell): `$env:BROWSER_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"`
+  - En Windows (CMD): `set BROWSER_PATH=C:\Program Files\Google\Chrome\Application\chrome.exe`
 
 ---
 

@@ -1,10 +1,12 @@
 const { chromium } = require('playwright-extra');
 const stealth = require('puppeteer-extra-plugin-stealth')();
+const { resolveBrowserExecutable } = require('./browser-resolver');
+
 chromium.use(stealth);
 
 class BraveChatGPTClient {
   constructor(options = {}) {
-    this.bravePath = options.bravePath || '/usr/bin/brave';
+    this.customBrowserPath = options.browserPath || options.bravePath || null;
     this.headless = options.headless !== undefined ? options.headless : true;
     this.browser = null;
     this.context = null;
@@ -15,8 +17,16 @@ class BraveChatGPTClient {
   async init() {
     if (this.initialized) return;
 
+    const executablePath = resolveBrowserExecutable(this.customBrowserPath);
+    if (!executablePath) {
+      throw new Error(
+        'No se encontro ningun navegador compatible (Brave o Google Chrome) en el sistema. Puedes especificar la ruta con la variable de entorno BROWSER_PATH.'
+      );
+    }
+    console.log(`[BROWSER] Usando ejecutable: ${executablePath}`);
+
     this.browser = await chromium.launch({
-      executablePath: this.bravePath,
+      executablePath,
       headless: this.headless,
       args: [
         '--incognito',
