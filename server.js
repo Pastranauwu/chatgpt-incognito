@@ -1,30 +1,36 @@
 const http = require('http');
 const BraveChatGPTClient = require('./client');
+const SessionManager = require('./session');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
+const MAX_TOKENS = parseInt(process.env.MAX_TOKENS || '6000', 10);
+const SUMMARY_THRESHOLD = parseInt(process.env.SUMMARY_THRESHOLD || '4500', 10);
 
-// Cliente persistente compartido para la API
+// Instancia compartida de sesión y cliente
 let clientInstance = null;
-let clientLock = Promise.resolve();
+let sessionManager = null;
+let queueLock = Promise.resolve();
 
-async function getClient() {
+async function getSessionManager() {
   if (!clientInstance || !clientInstance.initialized) {
     clientInstance = new BraveChatGPTClient({ headless: true });
     await clientInstance.init();
+    sessionManager = new SessionManager({
+      client: clientInstance,
+      maxTokens: MAX_TOKENS,
+      summaryThreshold: SUMMARY_THRESHOLD
+    });
   }
-  return clientInstance;
+  return sessionManager;
 }
 
-// Helper para parsear JSON body
 function parseBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
     req.on('data', chunk => {
       body += chunk;
-      if (body.length > 5 * 1024 * 1024) {
-        reject(new Error('Payload too large'));
-      }
+      if (body.length > 5 * 1024 * 1024) reject(new Error('Payload too large'));
     });
     req.on('end', () => {
       if (!body) return resolve({});
@@ -49,7 +55,6 @@ function sendJson(res, statusCode, data) {
 }
 
 const server = http.createServer(async (req, res) => {
-  // Manejo de CORS preflight
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
@@ -62,17 +67,26 @@ const server = http.createServer(async (req, res) => {
 
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  // Health check
+  // Health check & session stats
   if (url.pathname === '/health' || url.pathname === '/') {
+    const session = sessionManager ? sessionManager.getStats() : null;
     sendJson(res, 200, {
       status: 'ok',
       service: 'brave-chatgpt-api',
-      endpoints: ['/v1/chat/completions', '/v1/models', '/chat', '/health']
+      session,
+      endpoints: ['/v1/chat/completions', '/v1/models', '/chat', '/session', '/health']
     });
     return;
   }
 
-  // Modelos disponibles (compatibilidad OpenAI)
+  // Info detallada de la sesión actual
+  if (url.pathname === '/session' && req.method === 'GET') {
+    const manager = await getSessionManager();
+    sendJson(res, 200, manager.getStats());
+    return;
+  }
+
+  // Modelos disponibles
   if (url.pathname === '/v1/models' && req.method === 'GET') {
     sendJson(res, 200, {
       object: 'list',
@@ -88,7 +102,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Endpoint simple: POST /chat { prompt: "hola" }
+  // POST /chat
   if (url.pathname === '/chat' && req.method === 'POST') {
     try {
       const body = await parseBody(req);
@@ -99,15 +113,15 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
-      // Encolar peticiones concurrentes para no colapsar la sesion del navegador
       const responseText = await runSerialized(async () => {
-        const client = await getClient();
-        return await client.sendMessage(prompt);
+        const manager = await getSessionManager();
+        return await manager.chat(prompt);
       });
 
       sendJson(res, 200, {
         prompt,
-        response: responseText
+        response: responseText,
+        session: sessionManager.getStats()
       });
     } catch (err) {
       console.error('[ERROR /chat]:', err.message);
@@ -116,7 +130,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Endpoint OpenAI compatible: POST /v1/chat/completions
+  // POST /v1/chat/completions (OpenAI compatible)
   if (url.pathname === '/v1/chat/completions' && req.method === 'POST') {
     try {
       const body = await parseBody(req);
@@ -132,21 +146,14 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
-      // Construir prompt a partir del historial o tomar el ultimo mensaje del usuario
-      // Para optimizar en modo incognito sin autenticacion, formateamos la conversacion si hay varios
-      let finalPrompt = '';
-      if (messages.length === 1) {
-        finalPrompt = messages[0].content;
-      } else {
-        finalPrompt = messages
-          .map(m => `${m.role.toUpperCase()}: ${m.content}`)
-          .join('\n\n') + '\n\nASSISTANT:';
-      }
+      // Si nos mandan un solo mensaje tomamos ese, si nos mandan una conversación completa de OpenCode/Claude,
+      // tomamos el último mensaje del usuario para dejar que nuestro SessionManager gestione la persistencia del hilo
+      const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
+      const finalPrompt = lastUserMsg ? lastUserMsg.content : messages[messages.length - 1].content;
 
       const stream = Boolean(body.stream);
 
       if (stream) {
-        // Soporte Server-Sent Events (SSE) compatible con OpenAI
         res.writeHead(200, {
           'Content-Type': 'text/event-stream',
           'Cache-Control': 'no-cache',
@@ -155,10 +162,10 @@ const server = http.createServer(async (req, res) => {
         });
 
         await runSerialized(async () => {
-          const client = await getClient();
+          const manager = await getSessionManager();
           let sentLength = 0;
 
-          await client.sendMessage(finalPrompt, (currentFullText) => {
+          await manager.chat(finalPrompt, (currentFullText) => {
             const newChunk = currentFullText.slice(sentLength);
             if (newChunk) {
               sentLength = currentFullText.length;
@@ -179,7 +186,6 @@ const server = http.createServer(async (req, res) => {
             }
           });
 
-          // Finalizar stream
           const finalPayload = {
             id: 'chatcmpl-' + Date.now(),
             object: 'chat.completion.chunk',
@@ -194,10 +200,10 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
-      // Modo non-stream
+      // Non-stream
       const responseText = await runSerialized(async () => {
-        const client = await getClient();
-        return await client.sendMessage(finalPrompt);
+        const manager = await getSessionManager();
+        return await manager.chat(finalPrompt);
       });
 
       const responseId = 'chatcmpl-' + Date.now();
@@ -217,9 +223,9 @@ const server = http.createServer(async (req, res) => {
           }
         ],
         usage: {
-          prompt_tokens: finalPrompt.length,
-          completion_tokens: responseText.length,
-          total_tokens: finalPrompt.length + responseText.length
+          prompt_tokens: sessionManager.countTokens(finalPrompt),
+          completion_tokens: sessionManager.countTokens(responseText),
+          total_tokens: sessionManager.totalTokens
         }
       };
 
@@ -240,12 +246,11 @@ const server = http.createServer(async (req, res) => {
 });
 
 function runSerialized(task) {
-  const result = clientLock.then(task);
-  clientLock = result.catch(() => {});
+  const result = queueLock.then(task);
+  queueLock = result.catch(() => {});
   return result;
 }
 
-// Limpieza al cerrar proceso
 process.on('SIGINT', async () => {
   console.log('\n[INFO] Deteniendo servidor y cerrando instancia de Brave...');
   if (clientInstance) {
@@ -256,6 +261,7 @@ process.on('SIGINT', async () => {
 
 server.listen(PORT, HOST, () => {
   console.log(`[API LISTA] Servidor escuchando en http://${HOST}:${PORT}`);
+  console.log(`- Umbral resumen: ${SUMMARY_THRESHOLD} tokens | Max tokens: ${MAX_TOKENS} tokens`);
   console.log(`- OpenAI Endpoint: http://${HOST}:${PORT}/v1/chat/completions`);
   console.log(`- Simple Endpoint: http://${HOST}:${PORT}/chat`);
 });
